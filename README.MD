@@ -1,6 +1,6 @@
 # Pypicloud docker image
 
-This is a docker image for pypicloud with substenv. `substenv` is included to be able to substitute variables in the `config.ini`.
+This is a docker image for pypicloud with envsubst. `envsubst` is included to be able to substitute variables in the `config.ini`.
 
 It is meant for usage with a helm chart, but may be suitable for other purposes.
 
@@ -9,7 +9,7 @@ This image is based on:
 - https://github.com/cirocosta/alpine-envsubst
 
 ## Providing config
-This image assumes that config is present at `etc/pypicloud/config.ini`. It performs variable substitution for this file upon starting
+This image assumes that config is present at `/etc/pypicloud/config-template.ini`. It performs variable substitution for this file upon starting and renders it into `/etc/pypicloud/config.ini`
 
 ## Versions
 *3.8-gcs-redis*

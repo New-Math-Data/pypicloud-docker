@@ -1,2 +1,2 @@
-substenv < /etc/pypicloud/config-template.ini > /etc/pypicloud/config.ini
-uwsgi --die-on-term /etc/pypicloud/config.ini
+envsubst < /etc/pypicloud/config.ini > /var/lib/pypicloud/config.ini
+uwsgi --die-on-term /var/lib/pypicloud/config.ini
