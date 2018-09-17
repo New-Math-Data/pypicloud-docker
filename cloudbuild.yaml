@@ -1,0 +1,33 @@
+steps:
+# Notes:
+# - '|| exit' has script exit on error, thus failing build in case of an error
+# - gcloud container is present on build server and has python 2.7. Therefore using that to build.
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: python
+  entrypoint: /bin/bash
+  args:
+  - '-c'
+  - |
+    # Create a file named 'repo' which container repository name (e.g. 'api')
+    echo `sed 's/bitbucket-//g; s/spot-on-energy-//g' <<< $REPO_NAME` > repo || exit
+
+    # Install setuptools (using python 2.7)
+    pip install setuptools || exit
+
+    # Set version number in setup.py
+    sed -i 's/OVERWRITE_BY_SED/$TAG_NAME/g' setup.py || exit
+
+    # Build package
+    python setup.py sdist || exit
+
+    # Get credentials from gcloud
+    gcloud beta container clusters get-credentials --project="$PROJECT_ID" --region="${_CLOUDSDK_COMPUTE_ZONE}" "${_CLOUDSDK_CONTAINER_CLUSTER}" || exit
+
+    # Copy to cloud
+    gsutil cp dist/`cat repo`-$TAG_NAME.tar.gz gs://$PROJECT_ID-pypi/`cat repo`/$TAG_NAME/ || exit
+
+substitutions:
+  _CLOUDSDK_COMPUTE_ZONE: us-west1-a
+  _CLOUDSDK_CONTAINER_CLUSTER: k8s
+
+timeout: 3600s
