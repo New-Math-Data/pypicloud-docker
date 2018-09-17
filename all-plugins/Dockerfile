@@ -21,9 +21,10 @@ RUN apk add --no-cache --virtual build-deps gettext python3-dev mariadb-dev post
 # Create a working directory for pypicloud
 VOLUME /var/lib/pypicloud
 
+ADD ./run.sh /run.sh
+RUN chmod +x /run.sh
+
 # Run as pypicloud user
 USER pypicloud
 
-ADD ../run.sh /usr/local/bin/run.sh
-
-CMD ["run.sh"]
+CMD ["/bin/sh", "/run.sh"]
