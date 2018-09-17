@@ -1,4 +1,4 @@
-FROM python:3.7.0-alpine3.8
+FROM python:3.7.0-alpine3.7
 MAINTAINER Laurens-Jan Soer
 
 # After:
@@ -10,7 +10,7 @@ WORKDIR /app/
 
 # Install packages required
 ENV PYPICLOUD_VERSION 1.0.9
-ENV PLUGINS server,gcs,redis
+ENV PLUGINS all_plugins
 RUN apk add --no-cache --virtual build-deps gettext python3-dev mariadb-dev postgresql-dev build-base linux-headers openldap-dev && \
 	apk add --no-cache libintl libldap libpq mariadb-client-libs util-linux-dev libffi-dev && \
 	pip install pypicloud[$PLUGINS]==$PYPICLOUD_VERSION requests uwsgi pastescript mysqlclient psycopg2-binary && \
