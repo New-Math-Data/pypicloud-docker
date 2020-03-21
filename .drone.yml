@@ -5,7 +5,8 @@ steps:
 - name: publish
   image: plugins/docker
   settings:
-    repo: pypicloud
+    repo:
+      from_secret: pypi_ecr_registry
     registry:
       from_secret: pypi_ecr_registry
     tags:
