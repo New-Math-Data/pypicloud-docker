@@ -2,21 +2,19 @@ kind: pipeline
 name: default
 
 steps:
-
-  - name: build pypicloud image
-    image: docker:latest
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
-    commands:
-      - docker build --no-cache -t trejas/pypicloud:${DRONE_COMMIT} .
-
-  - name: publish
-    image: trejas/pypicloud:${DRONE_COMMIT}
-    settings:
-      repo: bar
-      registry:
-        from_secret: pypi_ecr_registry
-      tags:
-        - latest
-        - ${DRONE_COMMIT}
+- name: build pypicloud image
+  image: docker:latest
+  volumes:
+    - name: docker_sock
+      path: /var/run/docker.sock
+  commands:
+    - docker build --no-cache -t trejas/pypicloud:${DRONE_COMMIT} .
+- name: publish
+  image: trejas/pypicloud:${DRONE_COMMIT}
+  settings:
+    repo: bar
+    registry:
+      from_secret: pypi_ecr_registry
+    tags:
+      - latest
+      - ${DRONE_COMMIT}
