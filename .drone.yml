@@ -2,7 +2,7 @@ kind: pipeline
 name: default
 
 steps:
-- name: build pypicloud image
+- name: build_pypicloud_image
   image: docker:latest
   volumes:
     - name: docker_sock
