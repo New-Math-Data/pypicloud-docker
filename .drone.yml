@@ -5,6 +5,10 @@ steps:
 - name: publish
   image: plugins/ecr
   settings:
+    access_key:
+      from_secret: drone_access_key_id
+    secret_key:
+      from_secret: drone_secret_access_key_id
     repo: 531314022308.dkr.ecr.us-east-1.amazonaws.com/pypicloud
     registry: 531314022308.dkr.ecr.us-east-1.amazonaws.com/pypicloud
     tags:
