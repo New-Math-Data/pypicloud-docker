@@ -5,10 +5,8 @@ steps:
 - name: publish
   image: plugins/docker
   settings:
-    repo:
-      from_secret: pypi_ecr_registry
-    registry:
-      from_secret: pypi_ecr_registry
+    repo: 531314022308.dkr.ecr.us-east-1.amazonaws.com/pypicloud
+    registry: 531314022308.dkr.ecr.us-east-1.amazonaws.com/pypicloud
     tags:
       - latest
       - ${DRONE_COMMIT}
