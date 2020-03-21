@@ -3,7 +3,7 @@ name: default
 
 steps:
 - name: publish
-  image: plugins/docker
+  image: plugins/ecr
   settings:
     repo: 531314022308.dkr.ecr.us-east-1.amazonaws.com/pypicloud
     registry: 531314022308.dkr.ecr.us-east-1.amazonaws.com/pypicloud
